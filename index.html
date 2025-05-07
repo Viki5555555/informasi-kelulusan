@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Kelulusan - SMA Xaverius 3 Palembang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6f0;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #d63384;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #d63384;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c2185b;
+        }
+        .result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Logo Sekolah -->
+<div class="logo">
+    <a href="https://www.smaxaverius3.sch.id/" target="_blank">
+        <!-- Menggunakan gambar dengan link yang benar -->
+        <img src="https://media-hosting.imagekit.io/643e606c9d3347cc/logo2.png?Expires=1841189823&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=lYrmeHuCAzV6S1WsiF-r6ZFihFG3I7intCsOfFEpHvF~Va1PgXNRDNdwclu69iMISha-VQUPlRUtyk4O9w405HL35G34zyXdm6hq8hTm8s4O8SvKQiX-H4ISvHxrOSwe2H7ZBjab6ic-aNqUSJvt9yI1AlJdOOMAEqRJU96rVCE1bKPcrId9blC30jRJHpg0f4ZswVtRrPzPT7DU1DC5U8z233W0IC~m6DvdsQNeqMuCnCby3lePBZdk972mXCpfeRQ8RCorq--41qSwJvAq5w~-DEoHqd-pjMWPF9VwSI4Y3ufbPh2xmts1lcVg6xGaJhNY3kc-u1pSxPkP89AODA__" alt="Logo SMA Xaverius 3 Palembang">
+    </a>
+</div>
+
+<h1>Halaman Kelulusan</h1>
+
+<div class="form-container">
+    <label for="nisn">Masukkan NISN:</label>
+    <input type="text" id="nisn" placeholder="Contoh: 0072162010" required>
+
+    <label for="nama">Masukkan Nama:</label>
+    <input type="text" id="nama" placeholder="Nama Lengkap" required>
+
+    <label for="kelas">Masukkan Kelas:</label>
+    <input type="text" id="kelas" placeholder="Contoh: XII 1" required>
+
+    <button onclick="cekKelulusan()">Cek Kelulusan</button>
+</div>
+
+<div class="result" id="result"></div>
+
+<script>
+    const dataSiswa = [
+        { nisn: "0072162010", nama: "Amelia", kelas: "XII 1", keterangan: "LULUS" },
+        { nisn: "0075974840", nama: "Andre Saputra", kelas: "XII 1", keterangan: "TIDAK LULUS" },
+        { nisn: "0081345779", nama: "Chanine Filadelfia Sainlar Lololuan", kelas: "XII 1", keterangan: "LULUS" },
+        { nisn: "0076524180", nama: "David Ferdinan", kelas: "XII 1", keterangan: "TIDAK LULUS" },
+        { nisn: "0077111130", nama: "Denice Davincent Lie", kelas: "XII 1", keterangan: "LULUS" },
+    ];
+
+    function cekKelulusan() {
+        const nisn = document.getElementById("nisn").value.trim();
+        const nama = document.getElementById("nama").value.trim().toLowerCase();
+        const kelas = document.getElementById("kelas").value.trim().toLowerCase();
+        const resultDiv = document.getElementById("result");
+
+        if (!nisn || !nama || !kelas) {
+            alert("Semua data harus diisi!");
+            return;
+        }
+
+        const siswa = dataSiswa.find(s =>
+            s.nisn === nisn &&
+            s.nama.toLowerCase() === nama &&
+            s.kelas.toLowerCase() === kelas
+        );
+
+        if (siswa) {
+            resultDiv.innerHTML = `
+                <p>Siswa dengan NISN <strong>${siswa.nisn}</strong><br>
+                Nama: <strong>${siswa.nama}</strong><br>
+                Kelas: <strong>${siswa.kelas}</strong><br>
+                <span style="color: ${siswa.keterangan === 'LULUS' ? 'green' : 'red'};">
+                    <strong>${siswa.keterangan}</strong>
+                </span></p>
+            `;
+        } else {
+            resultDiv.innerHTML = `<p style="color: red;">Data tidak ditemukan atau salah input.</p>`;
+        }
+    }
+</script>
+
+</body>
+</html>
